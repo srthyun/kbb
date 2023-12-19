@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity(name = "KeywordHit")
 @Table(name = "KeywordHit"
         , indexes = {
-        @Index(name = " idx_hitCount", columnList = "hitCount DESC")
-        , @Index(name = " idx_keyword", columnList = "keyword")
+        @Index(name = " idx__keyword_hit__hit_count", columnList = "hit_count DESC")
+        , @Index(name = " idx__keyword_hit__keyword", columnList = "keyword")
 })
 @Getter
 @Builder

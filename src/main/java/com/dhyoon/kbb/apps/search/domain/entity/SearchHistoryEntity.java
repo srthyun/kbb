@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity(name = "SearchHistory")
 @Table(name = "SearchHistory"
-        , indexes = {@Index(name = " idx_keyword", columnList = "keyword")})
+        , indexes = {@Index(name = " idx__search_history__keyword", columnList = "keyword")})
 @Getter
 @Builder
 @NoArgsConstructor
