@@ -1,6 +1,6 @@
 package com.dhyoon.kbb.apps.search.presentation.dto;
 
-import com.dhyoon.kbb.apps.engine.infrastructure.dto.*;
+import com.dhyoon.kbb.apps.engine.infrastructure.dto.SearchResultWrap;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

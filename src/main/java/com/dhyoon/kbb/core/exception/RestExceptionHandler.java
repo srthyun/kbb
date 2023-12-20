@@ -34,7 +34,7 @@ public class RestExceptionHandler {
 
     public void print(Exception exception, HttpServletRequest request) {
         String exceptionName = exception.getClass().getSimpleName();
-        String stackTrace = (String) Arrays.stream(exception.getStackTrace())
+        String stackTrace = Arrays.stream(exception.getStackTrace())
                 .limit(10L)
                 .map(StackTraceElement::toString)
                 .collect(Collectors.joining("\n"));
@@ -43,4 +43,12 @@ public class RestExceptionHandler {
         log.error("[{}] =====> trace : \n{}", exceptionName, stackTrace);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({InvalidParameterException.class})
+    public ResponseModel invalidParameterException(InvalidParameterException exception
+            , HttpServletRequest request) {
+        this.print(exception, request);
+
+        return ResponseModel.error(exception);
+    }
 }

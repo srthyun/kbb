@@ -7,8 +7,11 @@ import com.dhyoon.kbb.apps.search.domain.dto.BestKeywordResult;
 import com.dhyoon.kbb.apps.search.domain.entity.KeywordHitEntity;
 import com.dhyoon.kbb.apps.search.domain.entity.SearchHistoryEntity;
 import com.dhyoon.kbb.core.exception.EmptyUsableEngineException;
+import com.dhyoon.kbb.core.exception.InvalidParameterException;
 import com.dhyoon.kbb.core.exception.UnUsableEngineException;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -43,11 +46,16 @@ public class SearchServiceImpl implements SearchService {
         try {
             return engine.searchBlog(criteria);
         } catch (UnUsableEngineException e) {
-            engine.unHealthy(e.getMessage());
             if (engineList.size() == index) {
                 throw new EmptyUsableEngineException();
             }
             return searchBlog(engineList, index + 1, criteria);
+        } catch (FeignException feignException) {
+            if (feignException.status() == HttpStatus.BAD_REQUEST.value()) {
+                throw new InvalidParameterException();
+            } else {
+                throw feignException;
+            }
         }
     }
 

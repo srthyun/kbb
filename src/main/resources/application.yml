@@ -25,7 +25,8 @@ engine:
   health-check-time: 60000
   kakao:
     url: https://dapi.kakao.com
-    access-key: 4d64c627666da2f940d6ebb668cc6ca0
+    access-key: 4d64c627666da2f940d6ebb668cc6ca
+#    access-key: 4d64c627666da2f940d6ebb668cc6ca0
   naver:
     url: https://openapi.naver.com
     client-id: 7QM1fHnF8Kq_hg0W7IBc

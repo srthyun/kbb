@@ -14,18 +14,18 @@ public class FeignErrorInterceptor implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
-        log.warn("engine unhealthy :: {}", response.status());
+        log.warn("feign exception :: {}", response.status());
         if (response.status() / 100 == 5) {
-            throw new UnUsableEngineException(response.status() +" : "+response.reason());
+            throw new UnUsableEngineException(response.status() + " : " + response.reason());
         }
         if (response.status() == 401) {
-            throw new UnUsableEngineException(response.status() +" : "+response.reason());
+            throw new UnUsableEngineException(response.status() + " : " + response.reason());
         }
         if (response.status() == 403) {
-            throw new UnUsableEngineException(response.status() +" : "+response.reason());
+            throw new UnUsableEngineException(response.status() + " : " + response.reason());
         }
         if (response.status() == 429) {
-            throw new UnUsableEngineException(response.status() +" : "+response.reason());
+            throw new UnUsableEngineException(response.status() + " : " + response.reason());
         }
         return new Default().decode(methodKey, response);
     }

@@ -25,8 +25,7 @@ public abstract class AbstractEngine {
                     .sort(SortTypeEnum.ACCURACY)
                     .keyword("카카오뱅크").build());
             healthy();
-        } catch (UnUsableEngineException unusable) {
-            unHealthy(unusable.getMessage());
+        } catch (UnUsableEngineException ignored) {
         } catch (FeignException feign) {
             if (feign.status() == HttpStatus.BAD_REQUEST.value()) {
                 healthy();
@@ -36,12 +35,12 @@ public abstract class AbstractEngine {
         }
     }
 
-    public void healthy() {
+    protected void healthy() {
         health = true;
         log.info("[{}] HEALTHY", this.getClass().getSimpleName());
     }
 
-    public void unHealthy(String reason) {
+    protected void unHealthy(String reason) {
         health = false;
         log.warn("[{}] UNHEALTHY ===> {}", this.getClass().getSimpleName(), reason);
     }
